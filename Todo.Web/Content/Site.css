@@ -1,0 +1,198 @@
+﻿body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 12px;
+    background-color: lightgrey;
+  
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+
+
+#Navbar-inverse {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+.navbar-inverse {
+    background-color: white;
+    border-color: #428bca;
+}
+
+#Navbar-brand {
+    float: left;
+    padding: 21px 197px;
+    font-size: 18px;
+    line-height: 20px;
+    background-color: white;
+    border-color: white;
+    text-decoration: none;
+    color: white;
+}
+
+
+
+h4, .h4 {
+    font-size: 16px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.panel {
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+
+.panel-heading {
+    padding: 5px 10px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+        /*color: #ffffff;
+    background-color: #428bca;
+    border-color: #428bca;*/
+}
+
+.detail-panel{
+
+}
+
+.panel-body {
+    padding: 10px;
+}
+
+.btn {
+    border-radius: 10px !important;
+    margin: 10px;
+}
+
+.btn-sm, .btn-xs {
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.col-xs-3 {
+    width: 10%;
+}
+
+.col-xs-8 {
+    width: 70%;
+}
+
+.h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.btn {
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.btn-toolbar {
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.btn-success {
+    color: #ffffff;
+    background-color: #462;
+    border-color: #4cae4c;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.select {
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-color: rgb(169, 169, 169);
+}
+
+#Filter {
+    transition: .5s ease;
+    top: 72%;
+    left: 2%;
+    width: 184px;
+    height: 34px;
+    margin-left: 0;
+}
+
+#Clear {
+    background-color: lightsteelblue;
+    width: 184px;
+    transition: .5s ease;
+    top: 87%;
+    left: 2%;
+    height: 34px;
+}
+
+#Details{
+    padding: 20px;
+}
+
+#Create {
+    width: 390px;
+    height: 34px;
+    margin-left: -14px;
+}
+
+#paging-button {
+    color: black;
+    float: left;
+    padding: 80px 584px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 0px solid #ddd;
+    margin: -50px 4px;
+}
+
+.alert {
+    border-radius: 19px;
+}
+
+
+#Search-sort {
+    padding-top: 10px;
+}
+
+h4, h5, h6 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+
+
+#checkBoxAll {
+    margin: 21px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+
+.RemoveButton, .EditButton, .DetailsButton {
+    font-size: 12px;
+}
+
+
+
+.container-fluid {
+}
+
+

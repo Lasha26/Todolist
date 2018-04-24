@@ -1,0 +1,29 @@
+﻿@model Todo.Web.Models.EnumsViewModel
+
+<br/>
+
+@using (Html.BeginForm("List", "Do", FormMethod.Get, new { id="filterForm"}))
+{
+    @Html.Hidden("page", Model.Page)
+    <div class="form-group">
+        @Html.DropDownList("status",Model.Statuses,  "Select Status", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.DropDownList("priority", Model.Priorities, "Select Priority", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Search options: </label><br />
+        @Html.RadioButton("option", "Event", Model.Option == "Event") <text>Event</text>
+        @Html.RadioButton("option", "Description", Model.Option == "Description") <text> Description </text>
+        @Html.TextBox("search", Model.Search, new { @class = "form-control" })<br />
+        <br />  
+        <input type="submit" id="Filter" value="Filter" class=" btn btn-default" /> 
+        <a href="@Url.Action("List", "Do")" class="btn btn-default" id="Clear">Clear</a>
+    </div>
+    <div class="col-md-3"><a href="@Url.Action("Create", "Do")" class="btn btn-success" id="Create">Create</a></div>
+}
+ 
+
+
+
+

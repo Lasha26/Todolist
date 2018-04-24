@@ -1,0 +1,179 @@
+﻿@model Todo.Web.Models.DoListViewModel
+
+
+@{
+    ViewBag.Title = "To Do List";
+    string error = TempData["Error"]?.ToString();
+}
+
+
+<div id="categories" class="col-sm-3">
+    @Html.Action("Menu", "Nav")
+</div>
+<div class="col-sm-9">
+    <div>
+
+        <div class="row" id="Search-sort">           
+            <div class="col-md-6 col-md-offset-3 pull-right">
+                <div class="form-group" id="CheckList">
+                    <div class="col-md-4">
+                        <input type="checkbox" id="checkBoxAll" />
+                        <label for="checkBoxAll">Select All Events</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control" name="action" id="action">
+                            <option>Choose Action</option>
+                            <optgroup data-action="@((int)Actions.Status)" label="Status">
+                                <option value="@((int)Statuses.InProgress)">In Progress</option>
+                                <option value="2">Completed</option>
+                            </optgroup>
+                            <optgroup data-action="@((int)Actions.Priority)" label="Priority">
+                                <option value="1">High</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Low</option>
+                            </optgroup>
+                            <optgroup data-action="@((int)Actions.Delete)" label="Delete">
+                                <option>Delete</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div><br /><br />
+
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="alert alert-danger">@error</div>
+        }
+
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var d in Model.DO)
+                {
+                    <div class="col-lg-3">                       
+                        @Html.Partial("DoSummary", d)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="btn-group pull-right" id="paging-button">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+
+@section Scripts{
+    <script>
+
+        //datetimepicker
+        var SaveList = function () {
+            debugger;
+            var arrEvent = [];
+            var eventId = "";
+            $("#CheckList input[type=checkbox]").each(function (index, val) {
+            })
+        };
+
+        //remove event
+        $(document).ready(function () {
+            $(".RemoveButton").on("click", function (e) {
+                e.preventDefault();
+                var status = $(this).data("status");
+                if (status == "@((int)Todo.Domain.Entities.Statuses.InProgress)") {
+                    var result = confirm("Are you sure?");
+                    if (!result)
+                        return;
+                }
+                var href = $(this).attr("href");
+                window.location.href = href;
+            });
+
+
+           
+
+
+
+            //multiline delete
+            $("#action").on("change", function (e) {
+                debugger;               
+                var selected = $(this).find(':selected');
+                var action = selected.closest('optgroup').data('action');
+                if(!action){
+                    alert("you did not select any Action");
+                    return;
+                }
+                var value = selected.val();
+                var message = "";
+                switch (action) {
+                    case @((int)Actions.Delete):
+                        message = "Are you sure you want to delete this(these) event(s)?";
+                        break;
+                    case @((int)Actions.Status):
+                        message = "Are you sure you want to change Status of this(these) event(s)?";
+                        break;
+                    case @((int)Actions.Priority):
+                        message = "Are you sure you want to change Priority of this(these) event(s)?";
+                        break;
+                }
+                var result = confirm(message);
+                if (!result)
+                    return;
+                var ids = [];
+                $('.chkCheckBoxId').each(function () {
+                    if (this.checked) {
+                        ids.push($(this).val());
+                    }
+                });
+                var data = {
+                    Action: action,
+                    Value: value,
+                    Ids: ids
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("DeleteMulti", "Do")',
+                    data: { model: data }
+                });
+            });
+
+            //checkall checkbox
+            $('#checkBoxAll').click(function () {
+                if ($(this).is(":checked"))
+                    $('.chkCheckBoxId').prop('checked', true);
+                else
+                    $('.chkCheckBoxId').prop('checked', false);
+            });
+            $(".chkCheckBoxId").click(function () {
+                if ($(".chkCheckBoxId").length == $(".chkCheckBoxId:checked").length) {
+                    $("#checkBoxAll").prop("checked", true);
+                }
+                else {
+                    $("#checkBoxAll").prop("checked", false);
+                }
+            });
+
+            //Paging
+            $(".selectPage").on("click", function (e) {
+                e.preventDefault();
+                var page = $(this).data('page');
+                $('#page').val(page);
+                $('#filterForm').submit();
+            });
+        });
+
+    </script>
+
+}
