@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using Ninject;
 using System.Linq;
 using Moq;
-using Todo.Domain.Entities;
+using Todo.Domain.Enums;
 using Todo.Domain.Abstract;
-using Todo.Domain.Concrete;
+using Todo.Domain.Repository;
 using Ninject.Web.Common;
 
 namespace Todo.Web.Infrastructure

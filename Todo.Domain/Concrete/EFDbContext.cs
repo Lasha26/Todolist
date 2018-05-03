@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Todo.Domain.Entities;
 using System.Data.Entity;
 
-namespace Todo.Domain.Concrete
+namespace Todo.Domain.Repository
 {
     public class EFDbContext: DbContext
     {

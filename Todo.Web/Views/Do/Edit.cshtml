@@ -1,88 +1,72 @@
-﻿@model Todo.Domain.Entities.Do
+﻿@model Do
 
 @{
-
     var title = Model.Id == 0 ? "Create" : "Edit";
     ViewBag.Title = title;
-
+       
 }
 <div class="panel">
     <h2>@title</h2>
-
     @using (Html.BeginForm("Edit", "Do", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-
-        <div class="panel-heading">
+        <div class="panel-heading" id="EditBar">
             <h4>Event</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
-
-
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Event, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Event, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Event, "", new { @class = "text-danger" })
                 </div>
-            </div><br /><br /><br />
-
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
-            </div><br /><br /><br />
-
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.FillingTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FillingTime, new { htmlAttributes = new { @class = "form-control datePicker" } })
                     @Html.ValidationMessageFor(model => model.FillingTime, "", new { @class = "text-danger" })
                 </div>
-            </div><br /><br />
-
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EndingTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.EndingTime, new { htmlAttributes = new { @class = "form-control datePicker" } })
                     @Html.ValidationMessageFor(model => model.EndingTime, "", new { @class = "text-danger" })
                 </div>
-            </div><br /><br />
-
-
-
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EnumDropDownListFor(m => m.Priority, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
                 </div>
-            </div><br /><br />
-
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control" })
+
                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-success" />
                 </div>
             </div>
         </div>
-
-
     }
 
-
-    <div>
+    <div class="back-to-list">
         @Html.ActionLink("Back to List", "List", "Do")
     </div>
 </div>

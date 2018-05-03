@@ -1,78 +1,70 @@
 ﻿@model Todo.Web.Models.DoListViewModel
 
-
 @{
     ViewBag.Title = "To Do List";
     string error = TempData["Error"]?.ToString();
 }
-
-
 <div id="categories" class="col-sm-3">
     @Html.Action("Menu", "Nav")
 </div>
 <div class="col-sm-9">
     <div>
-
-        <div class="row" id="Search-sort">           
+        <div class="row" id="Search-sort">
             <div class="col-md-6 col-md-offset-3 pull-right">
                 <div class="form-group" id="CheckList">
                     <div class="col-md-4">
                         <input type="checkbox" id="checkBoxAll" />
                         <label for="checkBoxAll">Select All Events</label>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 pull-right" id="actions">
                         <select class="form-control" name="action" id="action">
                             <option>Choose Action</option>
-                            <optgroup data-action="@((int)Actions.Status)" label="Status">
-                                <option value="@((int)Statuses.InProgress)">In Progress</option>
-                                <option value="2">Completed</option>
-                            </optgroup>
-                            <optgroup data-action="@((int)Actions.Priority)" label="Priority">
-                                <option value="1">High</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Low</option>
-                            </optgroup>
-                            <optgroup data-action="@((int)Actions.Delete)" label="Delete">
-                                <option>Delete</option>
-                            </optgroup>
+
+                            @foreach(var a in Model.Actions)
+                            {
+                                <optgroup data-action="@((int)a.Action)" label="@a.GroupLabel">
+                                    @foreach(var item in a.ListItems)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </optgroup>
+                            }
                         </select>
                     </div>
                 </div>
-
-
-
             </div>
-
-
-        </div><br /><br />
+        </div>
 
 
         @if (!string.IsNullOrEmpty(error))
         {
             <div class="alert alert-danger">@error</div>
         }
-
-
-
-
-
         <div class="container-fluid">
             <div class="row">
-                @foreach (var d in Model.DO)
+                @if (Model.DO.Count() > 0)
                 {
-                    <div class="col-lg-3">                       
-                        @Html.Partial("DoSummary", d)
-                    </div>
+                    foreach (var d in Model.DO)
+                    {
+                        <div class="col-lg-3">
+                            @Html.Partial("DoSummary", d)
+                        </div>
+                    }
+                }
+                else
+                {
+                    @Html.Partial("Empty")
                 }
             </div>
         </div>
     </div>
     <div class="btn-group pull-right" id="paging-button">
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+        @if (Model.PagingInfo.CurrentPage > 1)
+        {
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+        }
     </div>
 </div>
-
-
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
 
 @section Scripts{
@@ -80,7 +72,7 @@
 
         //datetimepicker
         var SaveList = function () {
-            debugger;
+
             var arrEvent = [];
             var eventId = "";
             $("#CheckList input[type=checkbox]").each(function (index, val) {
@@ -92,7 +84,7 @@
             $(".RemoveButton").on("click", function (e) {
                 e.preventDefault();
                 var status = $(this).data("status");
-                if (status == "@((int)Todo.Domain.Entities.Statuses.InProgress)") {
+                if (status == "@((int)Todo.Domain.Enums.Statuses.InProgress)") {
                     var result = confirm("Are you sure?");
                     if (!result)
                         return;
@@ -101,14 +93,9 @@
                 window.location.href = href;
             });
 
-
-           
-
-
-
             //multiline delete
             $("#action").on("change", function (e) {
-                debugger;               
+
                 var selected = $(this).find(':selected');
                 var action = selected.closest('optgroup').data('action');
                 if(!action){
@@ -166,6 +153,7 @@
             });
 
             //Paging
+
             $(".selectPage").on("click", function (e) {
                 e.preventDefault();
                 var page = $(this).data('page');

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Domain.Entities
+namespace Todo.Domain.Enums
 {
     public enum Statuses
     {

@@ -1,8 +1,7 @@
 ﻿@model Do
 
 <div class="panel panel-primary">
-
-    <div class="panel-heading">
+    <div class="panel-heading @(Model.Status == Statuses.InProgress ? "progres": "")">
         <h3>
             <strong>Event : @Model.Event</strong><input type="checkbox" class="chkCheckBoxId pull-right" value="@Model.Id" /><br /><br />
         </h3>

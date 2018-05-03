@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Todo.Domain.Entities;
+using Todo.Domain.Enums;
 
 namespace Todo.Domain.Abstract
 {
@@ -15,6 +16,5 @@ namespace Todo.Domain.Abstract
         bool MultiDelete(IEnumerable<int> ids);
         bool ChangeStatus(IEnumerable<int> ids, Statuses status);
         bool ChangePriority(IEnumerable<int> ids, Priorities priority);
-
     }
 }

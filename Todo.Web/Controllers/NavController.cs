@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Todo.Domain.Abstract;
-using Todo.Domain.Entities;
+using Todo.Domain.Enums;
 using Todo.Web.Models;
 
 namespace Todo.Web.Controllers

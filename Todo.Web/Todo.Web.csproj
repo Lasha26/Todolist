@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\ActionViewModel.cs" />
     <Compile Include="Models\DoListViewModel.cs" />
     <Compile Include="Models\EnumsViewModel.cs" />
     <Compile Include="Models\MultiActionsViewModel.cs" />
@@ -172,8 +173,8 @@
     <Content Include="Views\Shared\DoSummary.cshtml" />
     <Content Include="Views\Nav\Menu.cshtml" />
     <Content Include="Views\Do\Edit.cshtml" />
-    <Content Include="Views\Shared\DateTime.cshtml" />
     <Content Include="Views\Do\Details.cshtml" />
+    <Content Include="Views\Shared\Empty.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

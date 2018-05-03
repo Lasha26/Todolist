@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Todo.Domain.Entities;
+using Todo.Domain.Enums;
 using Todo.Domain.Abstract;
 using Todo.Web.Models;
 using System.Threading.Tasks;
 using Todo.Web.Infrastructure;
-using Todo.Domain.Concrete;
+using Todo.Domain.Repository;
+using Todo.Domain.Entities;
 
 namespace Todo.Web.Controllers
 {
@@ -60,7 +61,7 @@ namespace Todo.Web.Controllers
             }
 
             if (!Result)
-                TempData["Error"] = "Did not delete";
+                TempData["Error"] = "You did not select any event";
             return JavaScript("location.reload(true)");
         }
 
@@ -69,6 +70,8 @@ namespace Todo.Web.Controllers
             var result = repository.GetById(Id);
             return View(result);
         }
+
+        //public ActionResult ActionsList(int Id)
 
         [HttpPost]
         public ActionResult Edit(Do result)
@@ -84,6 +87,11 @@ namespace Todo.Web.Controllers
                 ModelState.AddModelError("Error", $"{result.Event} has not saved");
             }
             return View(result);
+        }
+
+        public ActionResult Empty()
+        {
+            return View();
         }
 
         public ActionResult List(Statuses? status, Priorities? priority, string option, string search, int page = 1)
@@ -122,12 +130,13 @@ namespace Todo.Web.Controllers
             DoListViewModel model = new DoListViewModel();
             if (option == "Event")
             {
-                return View(model.DO.Where(x => x.Event == search || search == null).ToList());
+                return View(model.DO.Where(x => x.Event.Contains(search) || search == null).ToList());
             }
             else
             {
                 return View(model.DO.Where(x => x.Description.Contains(search) || search == null).ToList());
             }
+            
         }
     }
 }

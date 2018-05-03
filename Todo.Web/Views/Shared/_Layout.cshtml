@@ -5,21 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
     <link href="~/Content/Site.css" rel="stylesheet" />
     <title>Event @ViewBag.Title</title>
-
 </head>
-<body>
+<body >
     <div class="navbar navbar-inverse"  role="navigation">
         <a class="navbar-brand" id="Navbar-brand" href="#"><h3>@Html.ActionLink("To Do List", "List","Do")</h3></a>
     </div>
     <div class="container-fluid">
-
         @RenderBody()
-
     </div>
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>

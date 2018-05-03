@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Todo.Domain.Abstract;
+using Todo.Domain.Enums;
 using Todo.Domain.Entities;
-using Todo.Domain.Concrete;
+using Todo.Domain.Repository;
 using System.Data.Entity;
 
-namespace Todo.Domain.Concrete
+namespace Todo.Domain.Repository
 {
     public class EFDoRepository : IDoRepository
     {
+        #region private members
+
         private EFDbContext _context;
+
+        #endregion
+
+        #region contructor
+
         public EFDoRepository(EFDbContext context)
         {
             _context = context;
         }
+
+        #endregion
+
+        #region public methods
         public IEnumerable<Do> GetDoList(Statuses? status, Priorities? priority, string option, string search, int page, int pageSize)
         {
             return GetQuery(status, priority, option, search)
@@ -27,8 +39,8 @@ namespace Todo.Domain.Concrete
         public int TotalCount(Statuses? status, Priorities? priority, string option, string search)
         {
             return GetQuery(status, priority, option, search).Count();
-
         }
+
         public bool RemoveFromList(int id)
         {
             try
@@ -84,32 +96,12 @@ namespace Todo.Domain.Concrete
             }
 
         }
-        private IQueryable<Do> GetQuery(Statuses? status, Priorities? priority, string option, string search)
-        {
-            IQueryable<Do> query = _context.DO
-                            .Where(d => status == null || d.Status == status)
-                            .Where(d => priority == null || d.Priority == priority);
 
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                if (option == "Event")
-                {
-
-                    query = query.Where(x => x.Event == search);
-                }
-                else
-                {
-                    query = query.Where(x => x.Description.Contains(search));
-                }
-            }
-
-            return query;
-        }
         public bool MultiDelete(IEnumerable<int> ids)
         {
             try
             {
-                
+
                 var dos = _context.DO.Where(x => ids.Contains(x.Id)).ToList();
                 if (dos != null)
                 {
@@ -133,13 +125,13 @@ namespace Todo.Domain.Concrete
                 var dos = _context.DO.Where(x => ids.Contains(x.Id)).ToList();
                 if (dos != null)
                 {
-                   
 
-                    foreach(var d in dos)
+
+                    foreach (var d in dos)
                     {
                         d.Status = status;
                     }
-                   
+
                     _context.SaveChanges();
                     return true;
                 }
@@ -157,7 +149,7 @@ namespace Todo.Domain.Concrete
                 var dos = _context.DO.Where(x => ids.Contains(x.Id)).ToList();
                 if (dos != null)
                 {
-                    foreach(var d in dos)
+                    foreach (var d in dos)
                     {
                         d.Priority = priority;
                     }
@@ -166,11 +158,39 @@ namespace Todo.Domain.Concrete
                 }
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
         }
+
+        #endregion
+
+        #region private methods
+
+        private IQueryable<Do> GetQuery(Statuses? status, Priorities? priority, string option, string search)
+        {
+            IQueryable<Do> query = _context.DO
+                            .Where(d => status == null || d.Status == status)
+                            .Where(d => priority == null || d.Priority == priority);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                if (option == "Event")
+                {
+
+                    query = query.Where(x => x.Event == search);
+                }
+                else
+                {
+                    query = query.Where(x => x.Description.Contains(search));
+                }
+            }
+
+            return query;
+        }
+
+        #endregion
     }
 }
 

@@ -2,9 +2,6 @@
 @{
     ViewBag.Title = Model.Event;
 }
-
-
-
 <div class="detail panel">
     <div class="panel-heading">
         <h3>
@@ -22,7 +19,7 @@
             <li class="list-group-item"><h4><strong>Priority :</strong></h4><h5> @Model.Priority</h5></li>
         </ul>
     </div>
-    <div>
+    <div class="back-to-list">
         @Html.ActionLink("Back to List", "List", "Do")
     </div>
 </div>

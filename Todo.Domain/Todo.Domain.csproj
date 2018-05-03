@@ -78,12 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Concrete\EFDoRepository.cs" />
-    <Compile Include="Entities\Actions.cs" />
+    <Compile Include="Repository\EFDoRepository.cs" />
+    <Compile Include="Enums\Actions.cs" />
     <Compile Include="Entities\Do.cs" />
     <Compile Include="Abstract\IDoRepository.cs" />
-    <Compile Include="Entities\Priorities.cs" />
-    <Compile Include="Entities\Statuses.cs" />
+    <Compile Include="Enums\Priorities.cs" />
+    <Compile Include="Enums\Statuses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

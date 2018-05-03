@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Todo.Domain.Entities
+namespace Todo.Domain.Enums
 {
     public enum Actions
     {
